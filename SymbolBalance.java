@@ -8,7 +8,7 @@ public class SymbolBalance {
 	
 	public static void main(String args[]) throws FileNotFoundException{
 	
-		//checks if correct line argument was given
+		//Detects incorrect execution.
 		if(!(args.length == 1)){
 			System.out.println("Incorrect line argument, please try again.");
 			System.exit(0);
@@ -17,15 +17,15 @@ public class SymbolBalance {
 		File code = new File (args[0]);
 		
 		//Sets up scanner and uses delimiter to convert
-		//the entire file into one string
+		//the entire file into one string.
 		Scanner myScanner = new Scanner(code);
 		String fileContents = myScanner.useDelimiter("\\Z").next();
 		myScanner.close();
 		
 		ArrayList<Character> symbols = new ArrayList<Character>();
 		
-		//will go through string by character and will add char
-		//into an arraylist if it equals one of the cases
+		//Goes through the string by characters and will add 
+		//symbols into a list.
 		for(int i = 0; i<fileContents.length(); i++){
 			char c = fileContents.charAt(i);
 			
@@ -43,26 +43,20 @@ public class SymbolBalance {
 			}
 		}
 
-		//sets up stack and booleans to help with 
-		//comments in order to ignore the inside of the 
-		//comments
+		//Sets up a stack and booleans to help read 
+		//comment symbols.
 		MyStack<Character> theStack = new MyStack<Character>();
 		boolean quotSeen = false;
 		boolean bacSlaSeen = false;
 		boolean star1Seen = false;
 		boolean star2Seen = false;
 		
-		//Will go through arraylist of symbols one by one
-		//and will do appropriate action for each symbol.
-		//The !quotSeen and (!bacSlaSeen & !star1Seen & !star2Seen)
-		//portions are used to ignore symbols if they are inside
-		//comments. The code checks .isEmpty so that if the stack is
-		//empty, you know you have an error right away, because it will
-		//have nothing to compare it to.
-		//I also added Error markers (i.e. Error 3) just to help pinpoint 
-		//where the error occured. The rest works by popping the char if
-		//you reach a closed symbol, and checks for inequality. The 
-		//symbol.get(j+1) ensures that /* and */ are pairs
+		//Will go through the list of symbols and does the appropriate
+		//action for each symbol.
+		//quotSeen, bacSlaSeen, star1Seen, and star2Seen are used
+		//used to ignore symbols if they are inside comments. 
+		//The code functions by works by popping characters if
+		//you reach a closed symbol, and then checks for inequality. 
 		for(int j = 0; j < symbols.size(); j++){
 			char c = symbols.get(j);
 			
@@ -167,8 +161,8 @@ public class SymbolBalance {
 			}
 		}
 		//This checks if open symbols were added, in
-		//which case it would pop all the way until the
-		//bottom and declare that symbol the mistake
+		//which case the stack would pop all remaining elements 
+		//and declares that symbol the mistake.
 		if(!theStack.isEmpty()){
 			char t = 0;
 			while(!theStack.isEmpty()){
